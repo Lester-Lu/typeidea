@@ -8,7 +8,7 @@ class Link(models.Model):
     title = models.CharField(max_length=50, verbose_name="标签")
     url = models.URLField(verbose_name="友链")
     weight = models.PositiveIntegerField(default=1, choices=zip(range(1, 6), range(1, 6)),
-                                         verbose_name="权重", help_text="权重高拍现在前面")
+                                         verbose_name="权重", help_text="权重高排在前面")
     owner = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name="创建者")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
@@ -39,3 +39,6 @@ class SideBar(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = '侧边栏'
+
+    def __int__(self):
+        return self.status, self.display_type
