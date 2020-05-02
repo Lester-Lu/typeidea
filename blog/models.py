@@ -20,6 +20,13 @@ class Category(models.Model):
         verbose_name = verbose_name_plural = '分类'
 
 
+    def __str__(self):
+        return self.name
+
+    def __int__(self):
+        return self.status
+
+
 
 class Tag(models.Model):
     STATUS_NORMAL = 1
@@ -37,6 +44,14 @@ class Tag(models.Model):
         verbose_name = verbose_name_plural = '标签'
 
 
+    def __str__(self):
+        return self.name
+
+
+    def __int__(self):
+        return self.status
+
+
 class Post(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
@@ -49,7 +64,7 @@ class Post(models.Model):
     title = models.CharField(max_length=120,verbose_name="标题")
     desc = models.CharField(max_length=1024,verbose_name="摘要",blank=True)
     content = models.TextField(verbose_name= "内容")
-    status = models.PositiveIntegerField(default = STATUS_DRAFT)
+    status = models.PositiveIntegerField(default = STATUS_DRAFT,choices=STATUS_ITEMS,verbose_name='状态')
     owner = models.ForeignKey(User,on_delete=models.DO_NOTHING,verbose_name="作者")
     created_time = models.DateTimeField(auto_now_add=True,verbose_name="创建时间")
     category = models.ForeignKey(Category,on_delete=models.DO_NOTHING)
@@ -58,3 +73,14 @@ class Post(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']
+
+    def __str__(self):
+        return self.title
+
+    def __int__(self):
+        return self.status
+
+    @classmethod
+    def get_all_post(cls):
+        #cls.objetcs.raw('select * from blog_post')
+        pass
