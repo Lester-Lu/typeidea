@@ -22,7 +22,7 @@ class SideBarAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'display_type', 'created_time', 'status')
     fields = ['title', 'display_type',  'status','content']
 
-    search_fields = ['title']
+    search_fields = ['title','display_type']
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
